@@ -12,6 +12,7 @@ import com.campusland.exceptiones.facturaexceptions.FacturaExceptionInsertDataBa
 import com.campusland.respository.RepositoryFactura;
 import com.campusland.respository.models.Cliente;
 import com.campusland.respository.models.Factura;
+import com.campusland.respository.models.Impuestos;
 import com.campusland.respository.models.ItemFactura;
 import com.campusland.respository.models.Producto;
 import com.campusland.utils.Formato;
@@ -68,6 +69,7 @@ public class RepositoryFacturaMysqlImpl implements RepositoryFactura {
 
     @Override
     public void crear(Factura factura) throws FacturaExceptionInsertDataBase {
+
         Connection conn=null;
         try {
             conn = getConnection();
@@ -95,6 +97,7 @@ public class RepositoryFacturaMysqlImpl implements RepositoryFactura {
                     psItem.setInt(3, item.getCantidad());
                     psItem.setDouble(4, item.getImporte());
                     psItem.addBatch();
+//                    psItem.setInt(4, i.getId_impuesto());
                 }
                 psItem.executeBatch();
             }
@@ -148,5 +151,4 @@ public class RepositoryFacturaMysqlImpl implements RepositoryFactura {
         return new ItemFactura(rs.getInt("cantidad"), producto);
 
     }
-
 }

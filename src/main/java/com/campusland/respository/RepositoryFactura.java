@@ -10,5 +10,5 @@ public interface RepositoryFactura {
     List<Factura> listar();
 
     void crear(Factura factura)throws FacturaExceptionInsertDataBase;
-    
+   
 }

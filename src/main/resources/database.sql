@@ -37,3 +37,35 @@ CREATE TABLE item_factura (
     INDEX idx_item_factura_factura (factura_numeroFactura),
     INDEX idx_item_factura_producto (producto_codigo)
 );
+
+CREATE TABLE impuesto_ref (
+    id_ref INT PRIMARY KEY,
+    periodo_fiscal DATE,
+    año DOUBLE,
+    porcentaje DOUBLE
+);
+ALTER TABLE impuesto_ref ADD COLUMN id_impuesto INT;
+
+CREATE TABLE impuestos (
+    id_impuesto INT,
+    id_cliente INT,
+    impuesto_pagado DOUBLE,
+    valor_total DOUBLE,
+    id_ref INT,
+    FOREIGN KEY (id_ref) REFERENCES impuesto_ref(id_ref)
+);
+ALTER TABLE impuestos ADD COLUMN id_producto INT;
+ALTER TABLE impuestos ADD FOREIGN KEY (id_cliente)
+REFERENCES cliente(id);
+
+CREATE TABLE descuento (
+    id_descuento INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_descuento VARCHAR(255),
+    condiciones_aplicacion VARCHAR(255),
+    porcentaje DOUBLE,
+    estado VARCHAR(255),
+    id_producto INT,
+    id_cliente INT,
+    FOREIGN KEY (id_producto) REFERENCES producto(codigo),
+    FOREIGN KEY(id_cliente) REFERENCES cliente(id)
+);
